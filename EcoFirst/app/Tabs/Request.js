@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text, View,StyleSheet } from 'react-native'
 
-export const Activity = () => {
+export const Request = () => {
   return (
       <View style={styles.container}>
           <Text >
-            Activity
+            Request
           </Text>
       </View>
   )
