@@ -1,20 +1,23 @@
 import React from 'react'
-import { Text, View,StyleSheet } from 'react-native'
+import { Text, View,StyleSheet, ScrollView } from 'react-native'
 
 export const Account = () => {
   return (
-      <View style={styles.container}>
-          <Text style={{justifyContent:'center'}}>
-            Account
-          </Text>
+    <ScrollView>
+      <View style={styles.profile}>
+          <Text>ssdwcwsd</Text>
       </View>
+      </ScrollView>
   )
 }
 const styles = StyleSheet.create({
-  container: {
+  profile: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'relative',
+    top:'10',
+    backgroundColor: '#C8CCBF',
+      
+    width: '90%',
+    height: '20%'
   },
 });
