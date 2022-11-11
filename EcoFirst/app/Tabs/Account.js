@@ -1,8 +1,30 @@
-import React from 'react'
-import { Text, View,StyleSheet, ScrollView, Button } from 'react-native'
+import {React,useEffect,useState} from 'react'
+import { Text, View,StyleSheet, ScrollView, Button, Pressable } from 'react-native'
 import UserAvatar from 'react-native-user-avatar'
-export const Account = () => {
+import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
+import { Paragraph, Dialog, Portal } from 'react-native-paper';
+import axios from 'axios';
+export const Account = ({ navigation }) => {
+  
+const [visible, setVisible] = useState(false);
+  const [projects,setProjects] = useState([])
+  const addProjects = () => {
+   navigation.navigate('Add Project')
+  }
+
+  useEffect(() => {
+    const getProjects = async () => {
+      axios.get('http://192.168.1.3:5000/projects/viewProjects')
+        .then((res) => { setProjects(res.data) })
+    }
+    getProjects();
+  })
+   const hideDialog = () => setVisible(false); 
   return (
+  <View >
     <ScrollView >
       <View style={styles.container}>
       <View style={styles.profile}>
@@ -19,21 +41,61 @@ export const Account = () => {
           </Text>  
 
         </View>
+        
       </View>
-      <View style={styles.projectDetails}>
-        <View style = {styles.project}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project Name</Text>
-          <Text style={{ fontSize: 20, marginTop: 10 }}>Project Name</Text>
-          <Button style = {styles.showProjectbtn} title='Show Project' color={'#075F5D'}/>
+      <View style = {styles.projectsTitle}>
+        <Text
+          style={{
+          fontWeight: 'bold',
+          fontSize: 30
+          }}>
+          Projects
+        </Text>
+        <Pressable onPress={addProjects}>
+          <View >
+            <Ionicons
+          style={{
+           left:200
+          }}
+          name="add-circle" size={40} color="black" />
+          </View>
+          </Pressable>
+        
+        
         </View>
-         <View style = {styles.project}>
-          <Text>Project Name</Text>
+        {projects.map((project) => (
+          <View style={styles.projectDetails}>
+        <View style={styles.project}>
+          <View style = {styles.nameBtn}>
+            <View>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{project.projectName }</Text>
+                  <Text style={{ fontSize: 20, marginTop: 10 }}>{project.startDate }</Text>
+            </View>
+            <View style={styles.editDelete} >
+              <TouchableHighlight>
+              <Entypo name="edit" size={24} color="black" />
+              </TouchableHighlight>
+              <TouchableHighlight>
+                <AntDesign style={{ marginTop: 10 }} name="delete" size={24} color="red" />
+                </TouchableHighlight>
+            </View>
+          </View>
+          
+         
+          <View  style={styles.showProjectbtn}>
+            <Button title='Show Project' color={'white'} />
+           </View>
         </View>
-         <View style = {styles.project}>
-          <Text>Project Name</Text>
         </View>
-      </View>
+
+        )) }
+      
+       
       </ScrollView>
+
+     
+      </View>
+    
   )
 }
 const styles = StyleSheet.create({
@@ -41,7 +103,8 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor: '#fff',
     alignItems:'center',
-    top:90
+    top: 20,
+    
     
   },
   name: {
@@ -74,18 +137,38 @@ const styles = StyleSheet.create({
   },
   project: {
     //borderWidth: 1,
-    borderBottomWidth:1,
+    // borderBottomWidth:1,
     margin: 3,
-    width: '90%',
+    width: '95%',
     height: 180,
-    
+    backgroundColor:'white'
     //backgroundColor: '#1EEE41',
     
   },
   showProjectbtn: {
+    flex:0.3,
     position: 'relative',
-    
+   
     backgroundColor: '#075F5D',
+    width: '40%',
+    height:'10%',
+    left:'30%'
     
+  },
+  nameBtn: {
+    flex:0.6,
+    flexDirection:'row'
+  },
+  editDelete: {
+    
+    //flexDirection:'row',
+    left:200
+  },
+  projectsTitle: {
+    flexDirection:'row',
+    position: 'relative',
+    top: 120,
+    left: 10,
+     alignItems:'baseline'
   }
 });

@@ -9,7 +9,7 @@ export default function Login({ navigation }) {
     navigation.push('Signup')
   }
   const loginNavi = () => {
-    navigation.push('Home')
+    navigation.push('Tabs')
   }
   return (
     <SafeAreaView style={styles.container} >
