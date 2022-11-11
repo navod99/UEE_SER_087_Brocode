@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet,ScrollView } from "react-native";
-
+import { Searchbar } from 'react-native-paper';
 import UserAvatar from 'react-native-user-avatar'
 export const Clubs = () => {
     const [clubs, setClubs] = useState([]);
+    const [search, setSearch] =useState('')
     useEffect(() => {
         const getAllProfesionals = async () => {
             axios.get('http://192.168.1.3:5000/clubs/viewClubs')
@@ -15,13 +16,19 @@ export const Clubs = () => {
         getAllProfesionals();
     })
   return (
-    <>
-      <ScrollView>
-        <View style={styles.container}>
-          <View>
-            <Text>All registerd Professionals</Text>
+      <>
+          <View  style = {{width:'98%',top:5}} >
+           <Searchbar
+      placeholder="Search"
+      onChangeText={txt =>setSearch(txt.toLowerCase())}
+                          value={search.toLowerCase()}
+                         
+    />
           </View>
-                  {clubs.map((club) => (
+      <ScrollView>
+        <View style={styles.container} >
+          
+                  {clubs.filter(c=>c.clubName.toLowerCase().includes(search)).map((club) => (
                        <View style={styles.professionalList}>
                       <View style = {styles.userPrfile}>
                           <UserAvatar size={100} name = {club.clubName}/>

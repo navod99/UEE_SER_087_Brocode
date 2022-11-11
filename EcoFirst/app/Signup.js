@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { TextInput, Button } from "@react-native-material/core";
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +7,12 @@ import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function Signup() {
+
+  const [name, SetName] = useState('');
+  const [mobileNo, setMobile] = useState('');
+  const [email, setEmail] = useState('');
+  const [userRole, setUserRole] = useState('');
+  const [password, setPassword] = useState('');
   const signup = () => {
     console.log("Touch")
   }
@@ -20,15 +26,21 @@ export default function Signup() {
           <TextInput
             style={styles.input}
             label="Name"
+            value={name}
+            onChangeText={e=>SetName(e)}
              />
              <TextInput
             style={styles.input}
             label="Mobile No"
+            value={mobileNo}
+            onChangeText={e=>setMobile(e)}
              />
           <TextInput
             style={styles.input}
             label="Email"
-            textContentType='password'
+            
+            value={email}
+            onChangeText={e=>setEmail(e)}
              />
           <SelectDropdown
             data={countries}
@@ -59,7 +71,8 @@ export default function Signup() {
           <TextInput
             style={styles.input}
             label="Password"
-            
+            value={password}
+            onChangeText={e=>setPassword(e)}
           />
           <TextInput
             style={styles.input}
