@@ -10,12 +10,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import AddProjects from './Projects/AddProjects'
+
 
 export const Tabs = () => {
     const Tab = createBottomTabNavigator();
-    const Drawer = createDrawerNavigator();
+    
     return (
         <>
            
@@ -122,7 +122,8 @@ export const Tabs = () => {
                             }
                         </View>
                     ))
-                }} />
+                    }} />
+                
             </Tab.Navigator>
             </>
     )
