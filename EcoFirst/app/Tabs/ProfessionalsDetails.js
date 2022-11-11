@@ -7,9 +7,11 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { Paragraph, Dialog, Portal } from 'react-native-paper';
 import axios from 'axios';
-import { SafeAreaView } from 'react-native-safe-area-context';
-export const Account = ({ navigation }) => {
-  
+
+export const ProfessionalsDetails = ({ navigation, route }) => {
+    
+    const id = route.params.id
+    const [professional, setProfessional] = useState();
 const [visible, setVisible] = useState(false);
   const [projects,setProjects] = useState([])
   const addProjects = () => {
@@ -17,34 +19,41 @@ const [visible, setVisible] = useState(false);
   }
 
   useEffect(() => {
-    const getProjects = async () => {
-      axios.get('http://192.168.1.3:5000/projects/viewProjects')
+    
+      const getProf = async () => {
+        await axios.get(`http://192.168.1.3:5000/professionals/viewProfessionals/${id}`)
+              .then((res) => {  setProfessional(res.data);  console.log('ss')})
+              .catch((err) => console.log(err))
+          
+      }
+      const getProjects = async () => {
+     await axios.get(`http://192.168.1.3:5000/projects/viewProjects`)
         .then((res) => { setProjects(res.data) })
-    }
-    getProjects();
+      }
+      getProjects();
+      getProf();
+      console.log(professional)
   },[])
-   const hideDialog = () => setVisible(false); 
+   
   return (
-  <SafeAreaView style = {{height:'90%'}} >
-    <ScrollView style = {{flex:1,height:'100%' }} automaticallyAdjustContentInsets = {true}>
+  <View >
+    <ScrollView >
       <View style={styles.container}>
       <View style={styles.profile}>
         <UserAvatar name={'Name'} size={100}  />
-          <Text style={styles.name}>ssdwcwsd</Text>
-          <Text style = {{fontSize:20}}>ssdwcwsd</Text>
+                      {/* <Text style={styles.name}>{professional.professionalName}</Text> */}
+          <Text style = {{fontSize:20}}>Environmentalist</Text>
         </View>
         <View style={styles.profileDes}>
           <Text>
-            I’m a research scientist working to better understand how neural
-            activity motivates and shapes human behavior. My expertise includes project design and management,
-            data analysis and interpretation, and the development and implementation of research tools.
+            {/* {professional.description} */}
             
           </Text>  
 
         </View>
-        
-        </View>
-       
+        <Button title='Request' onPress={()=>navigation.navigate('CreateRequest')} />
+              </View>
+              
       <View style = {styles.projectsTitle}>
         <Text
           style={{
@@ -53,35 +62,19 @@ const [visible, setVisible] = useState(false);
           }}>
           Projects
         </Text>
-        <Pressable onPress={addProjects}>
-          <View >
-            <Ionicons
-          style={{
-           left:200
-          }}
-          name="add-circle" size={40} color="black" />
-          </View>
-          </Pressable>
+       
         
         
         </View>
         {projects.map((project) => (
-         
-          <View  key = {project._id} style={styles.projectDetails}>
+          <View style={styles.projectDetails}>
         <View style={styles.project}>
           <View style = {styles.nameBtn}>
             <View>
                   <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{project.projectName }</Text>
                   <Text style={{ fontSize: 20, marginTop: 10 }}>{project.startDate }</Text>
             </View>
-            <View style={styles.editDelete} >
-              <TouchableHighlight>
-              <Entypo name="edit" size={24} color="black" />
-              </TouchableHighlight>
-              <TouchableHighlight>
-                <AntDesign style={{ marginTop: 10 }} name="delete" size={24} color="red" />
-                </TouchableHighlight>
-            </View>
+            
           </View>
           
          
@@ -93,11 +86,11 @@ const [visible, setVisible] = useState(false);
 
         )) }
       
-        
+       
       </ScrollView>
 
-     <Button title='Logout' onPress={()=>navigation.navigate('Login')}/>
-      </SafeAreaView>
+     
+      </View>
     
   )
 }
@@ -134,7 +127,8 @@ const styles = StyleSheet.create({
   },
   projectDetails: {
     flex: 2,
-    alignItems:'center',
+      alignItems: 'center',
+    justifyContent:'center',
     position: 'relative',
     top:150,
   },
@@ -144,7 +138,8 @@ const styles = StyleSheet.create({
     margin: 3,
     width: '95%',
     height: 180,
-    backgroundColor:'white'
+      backgroundColor: 'white',
+    alignItems:'center'
     //backgroundColor: '#1EEE41',
     
   },
@@ -155,7 +150,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#075F5D',
     width: '40%',
     height:'10%',
-    left:'30%'
     
   },
   nameBtn: {

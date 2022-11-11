@@ -1,3 +1,4 @@
+
 import {React,useState} from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { TextInput, Button } from "@react-native-material/core";
@@ -7,14 +8,11 @@ import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Snackbar } from 'react-native-paper';
 import axios from 'axios'
-export const AddProjects = () => {
+export const CreateRequest = () => {
 
 
   const [projectName, setProjectName] = useState('');
   const [clubName, setClubName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [URL, setURL] = useState('');
   const [description, setDescription] = useState('');
   const [msg, setMsg] = useState('')
   const [color,setColr] = useState('')
@@ -29,9 +27,9 @@ export const AddProjects = () => {
       description: description
     }
 
-    axios.post('http://192.168.1.3:5000/projects/create', project)
+    axios.post('http://192.168.1.3:5000/requests/create', project)
       .then(() => {
-        setMsg('Project Added Sucessfully')
+        setMsg('Request Sent Sucessfully')
         setVisible(true)
         setColr('chartreuse')
       })
@@ -48,35 +46,20 @@ export const AddProjects = () => {
     <SafeAreaView style={styles.container} >
       <ScrollView style={styles.scrollView}>
         <View style={styles.formView}>
-          <TextInput
-            style={styles.input}
-            label="Project Name"
-            value={projectName}
-            onChangeText = {(e)=>setProjectName(e)}
-          />
+         
           <TextInput
             style={styles.input}
             label="Club Name"
             value={clubName}
             onChangeText={e=>setClubName(e)}
-             />
-             <TextInput
-            style={styles.input}
-            label="Start Date"
-             />
-          <TextInput
-            style={styles.input}
-            label="End Date"
-           
           />
-          <TextInput
+           <TextInput
             style={styles.input}
-            label="URL"
-            value= {URL}
-            onChangeText={e=>setURL(e)}
-           
-             />
-          
+            label="Project Name"
+            value={projectName}
+            onChangeText = {(e)=>setProjectName(e)}
+          />
+             
           <TextInput
             style={styles.input}
             label="Description"

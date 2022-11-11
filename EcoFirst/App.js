@@ -5,8 +5,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from './app/Login';
 import Signup from './app/Signup';
 import { Tabs } from './app/Tab';
-import AddProjects from './app/Projects/AddProjects'
-
+import {AddProjects} from './app/Projects/AddProjects'
+import { ProfessionalsDetails } from './app/Tabs/ProfessionalsDetails';
+import { CreateRequest } from './app/Tabs/CreateRequest';
 export default function App() {
    const Stack = createNativeStackNavigator();
  
@@ -45,7 +46,13 @@ export default function App() {
         />
         <Stack.Screen
           name='Add Project'
-        component={AddProjects}/>
+          component={AddProjects} />
+        <Stack.Screen
+          name='professionalDetails'
+          component={ProfessionalsDetails} />
+         <Stack.Screen
+          name='CreateRequest'
+        component={CreateRequest}/>
         
       </Stack.Navigator>
     </NavigationContainer>
