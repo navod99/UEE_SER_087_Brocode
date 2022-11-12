@@ -1,13 +1,19 @@
 import React from 'react'
-import { Text, View,StyleSheet } from 'react-native'
+import { Text, View, StyleSheet,TouchableOpacity } from 'react-native'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Pending from '../Request/Pending';
+import Confirmed from '../Request/Confirmed';
 
 export const Request = () => {
+  const Drawer = createDrawerNavigator();
+
   return (
-      <View style={styles.container}>
-          <Text >
-            Request
-          </Text>
-      </View>
+    <>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Pending" component={Pending} />
+        <Drawer.Screen name="Confirmed" component={Confirmed} />
+      </Drawer.Navigator>
+    </>
   )
 }
 const styles = StyleSheet.create({
@@ -17,4 +23,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  card: {
+    width:'90%',
+    flexDirection: 'row',
+    backgroundColor: '#DAF8DF',
+    borderRadius: 40,
+    marginTop:20
+},
+
 });
