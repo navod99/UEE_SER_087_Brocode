@@ -5,6 +5,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from './app/Login';
 import Signup from './app/Signup';
 import { Tabs } from './app/Tab';
+import DiscussionView from './app/DiscussionView';
+import AddDiscussion from './app/AddDiscussion';
+
 export default function App() {
    const Stack = createNativeStackNavigator();
  
@@ -23,6 +26,18 @@ export default function App() {
         <Stack.Screen
           name="Signup"
           component={Signup}
+          
+          
+        />
+        <Stack.Screen
+          name="DiscussionView"
+          component={DiscussionView}
+          
+          
+        />
+        <Stack.Screen
+          name="AddDiscussion"
+          component={AddDiscussion}
           
           
         />

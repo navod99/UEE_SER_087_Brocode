@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home } from './Tabs/Home'
 import { Discussions } from './Tabs/Discussions'
+import DiscussionView from './DiscussionView'
 import { Request } from './Tabs/Request'
 import { Account } from './Tabs/Account'
 import { Entypo } from '@expo/vector-icons';
